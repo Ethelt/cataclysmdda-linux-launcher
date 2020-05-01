@@ -1,0 +1,22 @@
+#!/bin/bash
+mkdir tmp
+cd tmp
+curl https://api.github.com/repos/CleverRaven/Cataclysm-DDA/releases >> json
+release_link=$(python ../parser.py)
+version=$(echo $release_link | grep -Eo '[[:digit:]]{5,}' | head -1)
+current_version=$(cat ../current_version)
+if [ "$version" != "$current_version" ]
+then
+	echo $version > ../current_version 
+	cp -r ../cataclysmdda-0.E/save .
+	wget $release_link
+	cd ..
+	rm -r cataclysmdda*
+	tar -xzf tmp/cataclysmdda*
+	cp -r tmp/save cataclysmdda*
+else
+	echo "No new version found"
+	cd ..
+fi
+rm -r tmp
+cataclysmdda*/cataclysm-launcher
