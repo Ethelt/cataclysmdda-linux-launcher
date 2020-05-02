@@ -1,4 +1,5 @@
 #!/bin/bash
+cd "$(dirname "${BASH_SOURCE[0]}")"
 mkdir tmp
 cd tmp
 curl https://api.github.com/repos/CleverRaven/Cataclysm-DDA/releases >> json
