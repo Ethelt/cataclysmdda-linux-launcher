@@ -12,6 +12,7 @@ then
 	mkdir ../backups/$current_version
 	echo $version > ../current_version 
 	cp -r ../cataclysmdda-0.E/save ../backups/$current_version
+	rm -r $(find ../backups/* -maxdepth 0 | head -n -10)
 	wget $release_link
 	cd ..
 	rm -r cataclysmdda*
