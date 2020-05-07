@@ -1,5 +1,6 @@
 #!/bin/bash
 cd "$(dirname "${BASH_SOURCE[0]}")"
+source config
 mkdir backups
 mkdir tmp
 cd tmp
@@ -12,7 +13,7 @@ then
 	mkdir ../backups/$current_version
 	echo $version > ../current_version 
 	cp -r ../cataclysmdda-0.E/save ../backups/$current_version
-	rm -r $(find ../backups/* -maxdepth 0 | head -n -10)
+	rm -r $(find ../backups/* -maxdepth 0 | head -n -$backups_count)
 	wget $release_link
 	cd ..
 	rm -r cataclysmdda*
