@@ -1,5 +1,6 @@
 #!/bin/bash
 cd "$(dirname "${BASH_SOURCE[0]}")"
+mkdir backups
 mkdir tmp
 cd tmp
 curl https://api.github.com/repos/CleverRaven/Cataclysm-DDA/releases >> json
@@ -8,13 +9,14 @@ version=$(echo $release_link | grep -Eo '[[:digit:]]{5,}' | head -1)
 current_version=$(cat ../current_version)
 if [ "$version" != "$current_version" ]
 then
+	mkdir ../backups/$current_version
 	echo $version > ../current_version 
-	cp -r ../cataclysmdda-0.E/save .
+	cp -r ../cataclysmdda-0.E/save ../backups/$current_version
 	wget $release_link
 	cd ..
 	rm -r cataclysmdda*
 	tar -xzf tmp/cataclysmdda*
-	cp -r tmp/save cataclysmdda*
+	cp -r backups/$current_version/save cataclysmdda*
 else
 	echo "No new version found"
 	cd ..
