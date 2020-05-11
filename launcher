@@ -5,6 +5,7 @@ mkdir backups
 mkdir tmp
 cd tmp
 curl https://api.github.com/repos/CleverRaven/Cataclysm-DDA/releases >> json
+cat json
 release_link=$(python ../parser.py)
 version=$(echo $release_link | grep -Eo '[[:digit:]]{5,}' | head -1)
 current_version=$(cat ../current_version)
